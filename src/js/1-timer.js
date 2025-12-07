@@ -8,7 +8,6 @@ const startBtn = document.querySelector('[data-start]');
 
 let userSelectedDate = null;
 
-// Кнопка неактивна за замовчуванням
 startBtn.disabled = true;
 
 flatpickr(time, {
@@ -19,7 +18,6 @@ flatpickr(time, {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
     
-    // Валідація дати
     if (userSelectedDate < new Date()) {
       window.alert("Please choose a date in the future");
       startBtn.disabled = true;
@@ -29,7 +27,6 @@ flatpickr(time, {
   }
 });
 
-// Обробка натискання на кнопку Start
 startBtn.addEventListener('click', () => {
   const now = new Date();
   const timeDifference = userSelectedDate - now;
@@ -43,7 +40,6 @@ startBtn.addEventListener('click', () => {
   startBtn.disabled = true;
   time.disabled = true;
 
-  // Зворотний відлік
   const timerInterval = setInterval(() => {
     const currentTime = new Date();
     const timeLeft = userSelectedDate - currentTime;
@@ -61,7 +57,6 @@ startBtn.addEventListener('click', () => {
   }, 1000);
 });
 
-// Функція для конвертування мілісекунд
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
@@ -76,7 +71,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-// Функція для оновлення дисплея таймера
 function updateTimerDisplay(days, hours, minutes, seconds) {
   document.querySelector('[data-days]').textContent = String(days).padStart(2, '0');
   document.querySelector('[data-hours]').textContent = String(hours).padStart(2, '0');
